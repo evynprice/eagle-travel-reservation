@@ -24,7 +24,7 @@ public class CommandLine {
 
             switch(selection) {
                 case 1:
-                    this.bookAFlight();
+                    this.bookFlight();
                     break;
                 case 2:
                     this.modifyBooking();
@@ -39,7 +39,7 @@ public class CommandLine {
         System.out.println("Thank you for using Golden Eagle.");
     }
 
-    private void bookAFlight() {
+    private void bookFlight() {
         /* Pull in list of cities and print with for loop, ex:
         1) Chattanooga, TN
         2) Atlanta, GA
