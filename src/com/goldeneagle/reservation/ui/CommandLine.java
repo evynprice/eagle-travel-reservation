@@ -1,6 +1,6 @@
 package com.goldeneagle.reservation.ui;
 
-import com.goldeneagle.reservation.data.Flights;
+import com.goldeneagle.reservation.resources.Flights;
 import com.goldeneagle.reservation.resources.Flight;
 
 import java.time.Duration;

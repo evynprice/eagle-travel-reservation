@@ -1,4 +1,4 @@
-package com.goldeneagle.reservation.data;
+package com.goldeneagle.reservation.resources;
 
 import com.goldeneagle.reservation.resources.Flight;
 
