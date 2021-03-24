@@ -1,23 +1,25 @@
 package com.goldeneagle.reservation.resources;
 
 import java.time.Duration;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Flight {
     private final String name;
-    private final LocalDate date;
+    private final LocalDateTime dateTime;
     private final Duration duration;
     private final City departureCity;
     private final City arrivalCity;
+    private final double cost;
     private final int totalSeats;
     private int availableSeats;
 
-    public Flight(String name, LocalDate date, Duration duration, City departureCity, City arrivalCity, int totalSeats) {
+    public Flight(String name, LocalDateTime dateTime, Duration duration, City departureCity, City arrivalCity, double cost, int totalSeats) {
         this.name = name;
-        this.date = date;
+        this.dateTime = dateTime;
         this.duration = duration;
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
+        this.cost = cost;
         this.totalSeats = totalSeats;
         this.availableSeats = totalSeats;
     }
@@ -26,8 +28,8 @@ public class Flight {
         return this.name;
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
     }
 
     public Duration getDuration() {
@@ -40,6 +42,10 @@ public class Flight {
 
     public City getArrivalCity() {
         return this.arrivalCity;
+    }
+
+    public double getCost() {
+        return this.cost;
     }
 
     public int getTotalSeats() {
