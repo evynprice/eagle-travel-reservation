@@ -16,6 +16,26 @@ public class Flight {
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
         this.totalSeats = totalSeats;
-        this.availableSeats = totalSeats;
+        this.availableSeats = totalSeats;        
     }
+           
+    public String getName() {
+        return this.name;
+    }
+    public Date getDate(){
+        return this.date;
+    }
+    public City getDepartureCity(){
+        return this.departureCity;
+    }
+    public City getArrivalCity(){
+        return this.arrivalCity;
+    }
+    public int getTotalSeats(){
+        return this.totalSeats;
+    }
+    public int getAvailableSeats(){
+        return this.availableSeats;
+    }
+    
 }
