@@ -23,7 +23,7 @@ public class Flight {
      * is the only one necessary
      * @param name String flight company
      * @param num int aircraft identifier
-     * @param departureCißty City departureCity
+     * @param departureCity City departureCity
      * @param arrivalCity City arrivalCity
      * @param dateTime LocalDate flight date
      * @param duration Duration flight duration
@@ -105,4 +105,5 @@ public class Flight {
     public List<Seat> getSeats() {
         return seats;
     }
+    
 }

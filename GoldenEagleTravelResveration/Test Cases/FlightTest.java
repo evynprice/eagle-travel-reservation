@@ -10,6 +10,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import com.goldeneagle.reservation.resources.City;
+import com.goldeneagle.reservation.resources.Flight;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -41,4 +45,24 @@ public class FlightTest {
     //
     // @Test
     // public void hello() {}
+    
+    /**
+     * Testing the constructor of the Flight.java class sets the proper attributes.
+     */
+    @Test
+    public void testAFlightObjectCanBeCreated()
+    {
+        City departureCity = new City("Atlanta, GA");
+        City arrivalCity = new City("Chattanooga, TN");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yy");  
+        Date now = new Date(); 
+        Flight flightObj = new Flight("United 5701 ATL-CHA", now, departureCity, arrivalCity, 75);
+        
+        assertEquals(flightObj.getName(), "United 5701 ATL-CHA");
+        assertEquals(flightObj.getDate(), now);
+        assertEquals(flightObj.getDepartureCity(), departureCity);
+        assertEquals(flightObj.getArrivalCity(), arrivalCity);
+        assertEquals(flightObj.getTotalSeats(), 75);
+        assertEquals(flightObj.getAvailableSeats(), 75);
+    }
 }
