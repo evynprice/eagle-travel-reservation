@@ -1,62 +1,107 @@
 package com.goldeneagle.reservation.resources;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+/*
+ * Flight objects are the largest resource object and depend on both the City and Flight objects. They include
+ * a name, flight number, departure city, arrival city, date, duration, price, and a list of seats
+ */
 public class Flight {
     private final String name;
-    private final LocalDateTime dateTime;
-    private final Duration duration;
+    private final int num;
     private final City departureCity;
     private final City arrivalCity;
-    private final double cost;
-    private final int totalSeats;
-    private int availableSeats;
+    private final LocalDate date;
+    private final Duration duration;
+    private final double price;
+    private final List<Seat> seats;
 
-    public Flight(String name, LocalDateTime dateTime, Duration duration, City departureCity, City arrivalCity, double cost, int totalSeats) {
+    /**
+     * Constructs a new Flight object. Because in this example all Flights will be hard coded, this constructor
+     * is the only one necessary
+     * @param name String flight company
+     * @param num int aircraft identifier
+     * @param departureCity City departureCity
+     * @param arrivalCity City arrivalCity
+     * @param date LocalDate flight date
+     * @param duration Duration flight duration
+     * @param price double seat cost
+     * @param seats List<Seat> list of seats
+     */
+    public Flight(String name, int num, City departureCity, City arrivalCity,
+                  LocalDate date, Duration duration, double price, List<Seat> seats) {
         this.name = name;
-        this.dateTime = dateTime;
-        this.duration = duration;
+        this.num = num;
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
-        this.cost = cost;
-        this.totalSeats = totalSeats;
-        this.availableSeats = totalSeats;
+        this.date = date;
+        this.duration = duration;
+        this.price = price;
+        this.seats = seats;
     }
 
+    /**
+     * Provides company name (Ex. Delta)
+     * @return name
+     */
     public String getName() {
         return this.name;
     }
 
-    public LocalDateTime getDateTime() {
-        return this.dateTime;
+    /**
+     * Returns aircraft identifier (Ex. 1592)
+     * @return num
+     */
+    public int getNum() {
+        return this.num;
     }
 
-    public Duration getDuration() {
-        return this.duration;
+    /**
+     * Returns arrivalCity object
+     * @return arrivalCity
+     */
+    public City getArrivalCity() {
+        return arrivalCity;
     }
 
+    /**
+     * Provides departureCity object
+     * @return departureCity
+     */
     public City getDepartureCity() {
         return this.departureCity;
     }
 
-    public City getArrivalCity() {
-        return this.arrivalCity;
+    /**
+     * Provides LocalDate flight date
+     * @return date
+     */
+    public LocalDate getDate() {
+        return date;
     }
 
-    public double getCost() {
-        return this.cost;
+    /**
+     * Provides flight duration
+     * @return Duration
+     */
+    public Duration getDuration() {
+        return duration;
     }
 
-    public int getTotalSeats() {
-        return this.totalSeats;
+    /**
+     * Provides seat price
+     * @return double price
+     */
+    public double getPrice() {
+        return price;
     }
 
-    public int getAvailableSeats() {
-        return this.availableSeats;
-    }
-
-    public void takeSeat() {
-        this.availableSeats -= 1;
+    /**
+     * Provides list of Seat objects
+     * @return List<Seat> seats
+     */
+    public List<Seat> getSeats() {
+        return seats;
     }
 }
