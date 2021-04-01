@@ -6,25 +6,16 @@ public class Seats {
 
     private String name;
     private String email;
-    private ArrayList seat = new ArrayList(100);
     private Random rnd = new Random();
     private boolean available = rnd.nextBoolean();
 
     public Seats() {
 
     }
-// Assigns each value in the array to 1-100
-    public void genSeats() {
-
-        for (int i = 1; i < 101; i++) {
-
-            seat.add(i);
-        }
-
-    }
-// Returns the Array(should be generated first)
-    public ArrayList getSeat() {
-        return seat;
+    public Seats(String name, String email)
+    {
+      this.name = name;
+      this.email = email;
     }
 // Sets the users name(optional if we dont want to include these two)
     public void setName(String customer) {
