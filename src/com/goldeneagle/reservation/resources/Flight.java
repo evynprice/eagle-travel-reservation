@@ -30,7 +30,7 @@ public class Flight {
      * @param seats List<Seat> list of seats
      */
     public Flight(String name, int num, City departureCity, City arrivalCity,
-                  LocalDateTime date, Duration duration, double price, List<Seat> seats) {
+                  LocalDateTime dateTime, Duration duration, double price, List<Seat> seats) {
         this.name = name;
         this.num = num;
         this.departureCity = departureCity;
