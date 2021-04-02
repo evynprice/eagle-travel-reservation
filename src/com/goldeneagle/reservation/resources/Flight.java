@@ -2,6 +2,7 @@ package com.goldeneagle.reservation.resources;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /*
  * Flight objects are the largest resource object and depend on both the City and Flight objects. They include
@@ -22,9 +23,9 @@ public class Flight {
      * is the only one necessary
      * @param name String flight company
      * @param num int aircraft identifier
-     * @param departureCity City departureCity
+     * @param departureCißty City departureCity
      * @param arrivalCity City arrivalCity
-     * @param date LocalDate flight date
+     * @param dateTime LocalDate flight date
      * @param duration Duration flight duration
      * @param price double seat cost
      * @param seats List<Seat> list of seats
