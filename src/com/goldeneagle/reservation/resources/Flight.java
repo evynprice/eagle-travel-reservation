@@ -1,7 +1,7 @@
 package com.goldeneagle.reservation.resources;
 
 import java.time.Duration;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /*
  * Flight objects are the largest resource object and depend on both the City and Flight objects. They include
@@ -12,7 +12,7 @@ public class Flight {
     private final int num;
     private final City departureCity;
     private final City arrivalCity;
-    private final LocalDate date;
+    private final LocalDateTime dateTime;
     private final Duration duration;
     private final double price;
     private final List<Seat> seats;
@@ -30,12 +30,12 @@ public class Flight {
      * @param seats List<Seat> list of seats
      */
     public Flight(String name, int num, City departureCity, City arrivalCity,
-                  LocalDate date, Duration duration, double price, List<Seat> seats) {
+                  LocalDateTime date, Duration duration, double price, List<Seat> seats) {
         this.name = name;
         this.num = num;
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
-        this.date = date;
+        this.dateTime = dateTime;
         this.duration = duration;
         this.price = price;
         this.seats = seats;
@@ -74,11 +74,11 @@ public class Flight {
     }
 
     /**
-     * Provides LocalDate flight date
+     * Provides LocalDateTime flight date and time
      * @return date
      */
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     /**
