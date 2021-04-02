@@ -3,6 +3,8 @@ Classes:
 - Flight: DONE
 
 - City:
+	- add final string airportName
+	- add getAirportName()
 	- Remove flights variable
 	- Remove airport
 	- Fix getters/setters
