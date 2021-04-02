@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  * @author Joeseph Jackson
  */
 public class DataGeneratorTest {
+    DataGenerator defaultGen;
     
     public DataGeneratorTest() {
     }
@@ -31,6 +32,7 @@ public class DataGeneratorTest {
     
     @Before
     public void setUp() {
+        this.defaultGen = new DataGenerator();
     }
     
     @After
@@ -38,9 +40,33 @@ public class DataGeneratorTest {
     }
 
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testDataGeneratorObjectCreated() {
+        DataGenerator dataGenerator1 = new DataGenerator();
+        assertTrue(dataGenerator1 instanceof DataGenerator);
     }
+    
+    @Test
+    public void testDataGeneratorCanGenerateCost() {  
+        for (int i = 0; i < 100; i++){
+            assertNotNull(this.defaultGen.generateCost());
+            assertTrue(this.defaultGen.generateCost() >= 0.00);
+            assertTrue(this.defaultGen.generateCost() <= 1000.00);
+        }
+    }
+    
+    @Test
+    public void testDataGeneratorCanGenerateFlightNumber(){            
+        for (int i = 0; i < 100; i++) {
+            assertNotNull(this.defaultGen.generateFlightNum());
+            assertTrue(this.defaultGen.generateFlightNum()>0);
+            assertTrue(this.defaultGen.generateFlightNum()<=9999);            
+        }
+    }
+    
+    @Test
+    public void testDataGeneratorCanGenerateFlightTime(){
+        
+    }
+    
     
 }
