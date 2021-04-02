@@ -1,6 +1,12 @@
 package com.goldeneagle.reservation.ui;
 
+import com.goldeneagle.reservation.resources.Flights;
+import com.goldeneagle.reservation.resources.Flight;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CommandLine {
@@ -93,22 +99,31 @@ public class CommandLine {
 
         // fetch flights that match destination, departure, and date
 
-        // temporary example, production should be a list of Flight objects
-        ArrayList<String> flights = new ArrayList<>();
-        flights.add("United 5701 ATL-CHA (3:35pm - 5:32pm) - 2h:21m");
-        flights.add("Delta 3817 ATL-CHA (2:32pm - 4:56pm) - xh:ym");
-        flights.add("American 1932 ATL-CHA (3:25pm - 4:12pm) - xh:ym");
+        // temporary example, production should be a list of Flight objects in selected city
 
-        for (int i=0; i < flights.size(); i++) {
-            System.out.println((i+1) + ") " + flights.get(i));
+        Flights flights = new Flights();
+
+        flights.addFlight(new Flight("United 5701",
+                LocalDateTime.of(2021, 3, 24, 5, 30),
+                Duration.ofMinutes(519L), null, null, 213, 52));
+
+        List<Flight> flightsList = flights.getFlights();
+
+        for (int i=0; i < flightsList.size(); i++) {
+            Flight flight = flightsList.get(i);
+            int hours = (int) flight.getDuration().toHours();
+            int minutes = (int) flight.getDuration().minusHours(hours).toMinutes();
+
+            System.out.printf((i+1) + ") %s %s-%s: %dh %dm - $%5.2f %n", flight.getName(), "CHA", "ATL", hours, minutes, flight.getCost());
         }
-        System.out.println(flights.size() + 1 + ") Return to menu");
+
+        System.out.println(flightsList.size() + 1 + ") Return to menu");
         System.out.print("\n" + "Please select a flight: ");
 
         int fli = this.scanner.nextInt();
 
         // return if quit is selected
-        if (fli == flights.size() + 1) return;
+        if (fli == flightsList.size() + 1) return;
 
         // fetch flight object by index
         // Flight flight = flight.get(selection - 1);
