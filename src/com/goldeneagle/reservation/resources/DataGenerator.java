@@ -13,10 +13,16 @@ import java.util.Random;
  * @author Joeseph Jackson
  */
 public class DataGenerator {
+    private List<City> cities;
     private List<Flight> flightList;
  
-    public DataGenerator(){
-        
+    public DataGenerator() {
+        // generate cities
+        this.cities.add(new City("Chattanooga, TN"));
+        this.cities.add(new City("Nashville, TN"));
+        this.cities.add(new City("Chicago, IL"));
+        this.cities.add(new City("Los Angeles, CA"));
+        this.cities.add(new City("Atlanta, GA"));
     }
     // cannot complete untill a completed seats class is created.
 //    public Seats[] generateSeats(){
@@ -46,8 +52,5 @@ public class DataGenerator {
         // 2. Construct name from airline, flight num, departure city, and arrival city
         return  null;
     }    
-    public City generateCitys(){
-        return new City(null);       
-    }
 }
 
