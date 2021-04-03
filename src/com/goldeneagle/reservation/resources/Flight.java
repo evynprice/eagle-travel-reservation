@@ -105,5 +105,4 @@ public class Flight {
     public List<Seat> getSeats() {
         return seats;
     }
-    
 }

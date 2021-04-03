@@ -51,6 +51,6 @@ public class DataGenerator {
         // 1. Generate random Airline
         // 2. Construct name from airline, flight num, departure city, and arrival city
         return  null;
-    }    
+    }
 }
 
