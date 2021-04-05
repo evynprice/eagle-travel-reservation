@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /*
- * Flight objects are the largest resource object and depend on both the City and Flight objects. They include
- * a name, flight number, departure city, arrival city, date, duration, price, and a list of seats
+ * Flight objects are the largest resource object and depend on both the City and Seat objects. They include
+ * a name, flight number, departure city, arrival city, date time, duration, price, and a list of seats
  */
 public class Flight {
     private final String name;
@@ -19,11 +19,11 @@ public class Flight {
     private final List<Seat> seats;
 
     /**
-     * Constructs a new Flight object. Because in this example all Flights will be hard coded, this constructor
-     * is the only one necessary
+     * Constructs a new Flight object. Because in this example all Flights will be generated with the DataGenerator
+     * class, this constructor is the only one necessary
      * @param name String flight company
      * @param num int aircraft identifier
-     * @param departureCißty City departureCity
+     * @param departureCity City departureCity
      * @param arrivalCity City arrivalCity
      * @param dateTime LocalDate flight date
      * @param duration Duration flight duration
@@ -76,7 +76,7 @@ public class Flight {
 
     /**
      * Provides LocalDateTime flight date and time
-     * @return date
+     * @return dateTime
      */
     public LocalDateTime getDateTime() {
         return dateTime;
