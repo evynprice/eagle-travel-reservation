@@ -5,7 +5,9 @@
  */
 package com.goldeneagle.reservation.resources;
 import java.text.DecimalFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,19 +65,17 @@ public class DataGenerator {
         dateTimes.add(now); // initialize list with today
 
 
-        // start with current date time and loop to addd extra times
-        for(int i=1; i <= 3; i++) {
+        // start with current date time and loop to add extra times
+        for (int i = 1; i <= 3; i++) {
             dateTimes.add(now.plusDays(i));
         }
-
-        // TODO: Create list of possible durations
 
         // TODO: generate seats
 
         /* For the requested number of flights, pull a random name from the list, generate a random flight number,
            pull random departure and arrival cities, date, duration, and seats list
          */
-        for(int i=0; i < flightCount; i++) {
+        for (int i = 0; i < flightCount; i++) {
             /* generate a random number between 0 and the last element in the list, then fetch the name that is in that
                position of the list
              */
@@ -105,11 +105,64 @@ public class DataGenerator {
             int dateTimeIndex = random.nextInt(dateTimes.size());
             LocalDateTime dateTime = dateTimes.get(dateTimeIndex);
 
+            // generate a duration between 30 minutes and 3 and a half hours
+            Duration duration = this.generateDuration(30, 210);
+
             // generate the cost of the trip
             double price = this.generateCost();
 
+            // generate list of seats
+            List<Seat> seats;
+
             // generate a new flight based on that information
-            this.flights.add(new Flight(flightName, flightNum, departureCity, arrivalCity, dateTime, null, price, null));
+            this.flights.add(new Flight(flightName, flightNum, departureCity, arrivalCity, dateTime, duration, price, null));
+        }
+
+        /*
+
+        for (int i=0; i < 2; i++) {
+            List<Seat> seats = new ArrayList<>();
+
+            for (int j=0; j < 25; j++) {
+                // generate seat number
+                int randomMultiple = random.nextInt(5);
+
+                int seatNum = (j + 1) + randomMultiple; // for flight 1 the seats will be (1, 25), (2, 26),
+
+                // 1, + 1 = 2
+                // 1 + 2 = 3
+                // 1 + 3 = 4
+                //
+
+                seats.add(new Seat(seatNum + "", true));
+            }
+
+            this.flights.get(i).setSeats(seats);
+        }
+
+
+         */
+
+
+        // this.flights = 6 completely random flights (with random name, num, cities, ... seats
+
+        // go back and modify the last flight to set all of the seats to be full
+        // Flight lastFlight = this.flights.get(this.flights.size() - 1);
+
+
+    }
+
+    public void tester() {
+        for (Flight flight : this.flights) {
+            /*
+            System.out.println(flight.getName() + " " + flight.getNum() + " " + flight.getDepartureCity().getName() +
+                    " " + flight.getArrivalCity().getName() + " " + flight.getDateTime().format(DateTimeFormatter.ofPattern("MM dd yyyy hh ")) + " " + flight.getDuration().toMinutes()
+                    + " " + flight.getPrice());
+             */
+
+            for (Seat seat : flight.getSeats()) {
+                System.out.println(seat.getName());
+            }
         }
     }
 
@@ -118,10 +171,28 @@ public class DataGenerator {
      * @return cost
      */
     public double generateCost(){
-        Random rand = new Random();
-        double cost = rand.nextDouble() * 1000;
+        double cost = random.nextDouble() * 1000;
         DecimalFormat df = new DecimalFormat("#.00");
         return  Double.valueOf(df.format(cost));
+    }
+
+    /**
+     * Generates a random flight duration between passed in minimum duration and maximum duration in minutes
+     * @param minDuration in minutes
+     * @param maxDuration in minutes
+     * @return Duration duration
+     */
+    public Duration generateDuration(int minDuration, int maxDuration) {
+        Duration duration = Duration.ofMinutes(minDuration); // create a duration starting with the min value
+
+        /*
+        Randomly generate a time within the min and max values passed and set that to timeToAdd. Then add that
+        time to the duration
+        */
+        int timeToAdd = random.nextInt(maxDuration - minDuration);
+        duration = duration.plusMinutes(timeToAdd); //returns between (min, Max)
+
+        return duration;
     }
 
     /**
@@ -129,8 +200,7 @@ public class DataGenerator {
      * @return flightNum
      */
     public int generateFlightNum(){
-        Random rands = new Random();
-        int flightNum = rands.nextInt(9999) + 1;
+        int flightNum = random.nextInt(9999) + 1;
         return flightNum;
     }
 }

@@ -6,6 +6,7 @@ import com.goldeneagle.reservation.ui.CommandLine;
 public class App {
     public static void main(String[] args) {
         DataGenerator data = new DataGenerator();
+        data.tester();
 
         CommandLine cl = new CommandLine();
         cl.init();

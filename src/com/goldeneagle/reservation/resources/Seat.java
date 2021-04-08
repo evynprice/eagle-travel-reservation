@@ -16,6 +16,12 @@ public class Seat {
       this.name = name;
       this.email = email;
     }
+    
+    public Seat(String name, boolean available) {
+        this.name = name;
+        this.email = "";
+        this.available = available;
+    }
 
     /**
      * Returns the users name as a String

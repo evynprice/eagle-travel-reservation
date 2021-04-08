@@ -16,7 +16,7 @@ public class Flight {
     private final LocalDateTime dateTime;
     private final Duration duration;
     private final double price;
-    private final List<Seat> seats;
+    private List<Seat> seats;
 
     /**
      * Constructs a new Flight object. Because in this example all Flights will be hard coded, this constructor
@@ -104,5 +104,13 @@ public class Flight {
      */
     public List<Seat> getSeats() {
         return seats;
+    }
+
+    /**
+     * Set the flight seats
+     * @param seats List of flight seats
+     */
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 }
