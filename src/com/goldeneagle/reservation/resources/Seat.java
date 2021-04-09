@@ -32,11 +32,27 @@ public class Seat {
     }
 
     /**
+     * Return the availability status of the seat
+     * @return boolean available
+     */
+    public boolean isAvailable() {
+        return this.available;
+    }
+
+    /**
      * Sets user email
      * @param contact name
      */
     public void setEmail(String contact) {
         this.email = contact;
+    }
+
+    /**
+     * Sets the seat available status
+     * @param available boolean
+     */
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     /**

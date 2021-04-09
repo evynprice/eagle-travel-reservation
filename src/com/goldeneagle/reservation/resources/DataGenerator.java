@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package com.goldeneagle.reservation.resources;
-import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,22 +62,20 @@ public class DataGenerator {
 
         dateTimes.add(now); // initialize list with today
 
-
         // start with current date time and loop to add extra times
         for (int i = 1; i <= 3; i++) {
-            dateTimes.add(now.plusDays(i));
+            int randomMinutes = this.random.nextInt(180); // create a random time between 0 and 180
+            dateTimes.add(now.plusDays(i).plusMinutes(randomMinutes)); // add 1 day and the random minutes
         }
 
-        // TODO: generate seats
-
         /* For the requested number of flights, pull a random name from the list, generate a random flight number,
-           pull random departure and arrival cities, date, duration, and seats list
+           pull random departure and arrival cities, date, duration, and generate seat list
          */
         for (int i = 0; i < flightCount; i++) {
             /* generate a random number between 0 and the last element in the list, then fetch the name that is in that
                position of the list
              */
-            int nameIndex = random.nextInt(names.size());
+            int nameIndex = this.random.nextInt(names.size());
             String flightName = names.get(nameIndex);
 
             // generate a random flight number
@@ -88,21 +84,21 @@ public class DataGenerator {
             /* generate a random number between 0 and the last element in the cities list, then grab the city that
                is in that element
              */
-            int departureCityIndex = random.nextInt(this.cities.size());
+            int departureCityIndex = this.random.nextInt(this.cities.size());
             City departureCity = this.cities.get(departureCityIndex);
 
             // repeat for arrival city
-            int arrivalCityIndex = random.nextInt(this.cities.size());
+            int arrivalCityIndex = this.random.nextInt(this.cities.size());
             City arrivalCity = this.cities.get(arrivalCityIndex);
 
             // if the destination and arrival are the same, pick a different arrival city
             while (arrivalCity.equals(departureCity)) {
-                arrivalCityIndex = random.nextInt(this.cities.size());
+                arrivalCityIndex = this.random.nextInt(this.cities.size());
                 arrivalCity = this.cities.get(arrivalCityIndex);
             }
 
             // pick a number between 0 and the end of the date times list, then fetch the date time at that index
-            int dateTimeIndex = random.nextInt(dateTimes.size());
+            int dateTimeIndex = this.random.nextInt(dateTimes.size());
             LocalDateTime dateTime = dateTimes.get(dateTimeIndex);
 
             // generate a duration between 30 minutes and 3 and a half hours
@@ -112,58 +108,25 @@ public class DataGenerator {
             double price = this.generateCost();
 
             // generate list of seats
-            List<Seat> seats;
-
-            // generate a new flight based on that information
-            this.flights.add(new Flight(flightName, flightNum, departureCity, arrivalCity, dateTime, duration, price, null));
-        }
-
-        /*
-
-        for (int i=0; i < 2; i++) {
             List<Seat> seats = new ArrayList<>();
 
-            for (int j=0; j < 25; j++) {
-                // generate seat number
-                int randomMultiple = random.nextInt(5);
-
-                int seatNum = (j + 1) + randomMultiple; // for flight 1 the seats will be (1, 25), (2, 26),
-
-                // 1, + 1 = 2
-                // 1 + 2 = 3
-                // 1 + 3 = 4
-                //
-
-                seats.add(new Seat(seatNum + "", true));
+            for(int j=1; j <= 25; j++) {
+                boolean available = this.random.nextBoolean();
+                seats.add(new Seat(j + "", available));
             }
 
-            this.flights.get(i).setSeats(seats);
+            // generate a new flight based on that information
+            this.flights.add(new Flight(flightName, flightNum, departureCity, arrivalCity, dateTime, duration, price, seats));
         }
 
+        // change the last flight to have all seats full
 
-         */
+        Flight lastFlight = this.flights.get(this.flights.size() - 1); // fetch the last flight in the list
 
-
-        // this.flights = 6 completely random flights (with random name, num, cities, ... seats
-
-        // go back and modify the last flight to set all of the seats to be full
-        // Flight lastFlight = this.flights.get(this.flights.size() - 1);
-
-
-    }
-
-    public void tester() {
-        for (Flight flight : this.flights) {
-            /*
-            System.out.println(flight.getName() + " " + flight.getNum() + " " + flight.getDepartureCity().getName() +
-                    " " + flight.getArrivalCity().getName() + " " + flight.getDateTime().format(DateTimeFormatter.ofPattern("MM dd yyyy hh ")) + " " + flight.getDuration().toMinutes()
-                    + " " + flight.getPrice());
-             */
-
-            for (Seat seat : flight.getSeats()) {
-                System.out.println(seat.getName());
-            }
+        for (Seat lastFlightSeat : lastFlight.getSeats()) {
+            lastFlightSeat.setAvailable(false);
         }
+
     }
 
     /**
@@ -171,9 +134,7 @@ public class DataGenerator {
      * @return cost
      */
     public double generateCost(){
-        double cost = random.nextDouble() * 1000;
-        DecimalFormat df = new DecimalFormat("#.00");
-        return  Double.valueOf(df.format(cost));
+        return this.random.nextDouble() * 1000;
     }
 
     /**
@@ -200,8 +161,23 @@ public class DataGenerator {
      * @return flightNum
      */
     public int generateFlightNum(){
-        int flightNum = random.nextInt(9999) + 1;
-        return flightNum;
+        return random.nextInt(9999) + 1;
+    }
+
+    /**
+     * Provides a list of cities
+     * @return cities
+     */
+    public List<City> getCities() {
+        return cities;
+    }
+
+    /**
+     * Provides a list of flights
+     * @return flights
+     */
+    public List<Flight> getFlights() {
+        return flights;
     }
 }
 
