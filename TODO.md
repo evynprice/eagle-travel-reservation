@@ -13,7 +13,7 @@ Classes:
 	- Check bookSeat() method
 
 - Data generation:
-	- Generate cities
+	- Generate cities (DONE)
 	- Generate seats
 	- Generate dates?
 	- Generate flights based on cities, seats, and dates
