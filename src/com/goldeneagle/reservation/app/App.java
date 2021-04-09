@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
         DataGenerator data = new DataGenerator();
 
-        CommandLine cl = new CommandLine();
+        CommandLine cl = new CommandLine(data);
         cl.init();
     }
 }
