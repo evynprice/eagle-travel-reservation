@@ -58,42 +58,50 @@ public class CommandLine {
          */
 
         List<City> cities = data.getCities();
+        City departureCity;
+        City arrivalCity;
 
-        for (int i=0; i < cities.size(); i++) {
-            System.out.println((i+1) + ") " + cities.get(i).getName());
-        }
-        System.out.println(cities.size() + 1 + ") Return to menu");
-        System.out.print("\n" + "Please select your departure city: ");
-        int dep = this.scanner.nextInt();
+        do {
+            for (int i=0; i < cities.size(); i++) {
+                System.out.println((i+1) + ") " + cities.get(i).getName());
+            }
+            System.out.println(cities.size() + 1 + ") Return to menu");
+            System.out.print("\n" + "Please select your departure city: ");
+            int dep = this.scanner.nextInt();
 
-        // return if quit is selected
-        if (dep == cities.size() + 1) return;
+            // return if quit is selected
+            if (dep == cities.size() + 1) {
+                System.out.println("--------------------------------");
+                return;
+            };
 
-        // fetch city object by index
-        City departureCity = cities.get(dep - 1);
+            // fetch city object by index
+            departureCity = cities.get(dep - 1);
 
-        System.out.println("--------------------------------");
+            System.out.println("--------------------------------");
 
-        for (int i=0; i < cities.size(); i++) {
-            System.out.println((i+1) + ") " + cities.get(i).getName());
-        }
-        System.out.println(cities.size() + 1 + ") Return to menu");
-        System.out.print("\n" + "Please select your arrival city: ");
+            for (int i=0; i < cities.size(); i++) {
+                System.out.println((i+1) + ") " + cities.get(i).getName());
+            }
+            System.out.println(cities.size() + 1 + ") Return to menu");
+            System.out.print("\n" + "Please select your arrival city: ");
 
-        int arr = this.scanner.nextInt();
+            int arr = this.scanner.nextInt();
 
-        // return if quit is selected
-        if (arr == cities.size() + 1) return;
+            // return if quit is selected
+            if (arr == cities.size() + 1) {
+                System.out.println("--------------------------------");
+                return;
+            };
 
-        // fetch city object by index
-        City arrivalCity = cities.get(arr - 1);
-
-        // check if departure city is the same as destination city and send error if true
-        if (departureCity.equals(arrivalCity)) {
-            //TODO check if departure equals arrival, if so repeat through selection again (probably with do-while loop)
-        }
-
-        System.out.println("--------------------------------");
+            // fetch city object by index
+            arrivalCity = cities.get(arr - 1);
+            if (departureCity.equals(arrivalCity)) {
+                System.out.println("--------------------------------");
+                System.out.println("Departure City cannot be the same as the Arrival City");
+            }
+            System.out.println("--------------------------------");
+        } while(departureCity.equals(arrivalCity));
 
         //TODO This should pull a list of possible dates instead of asking for a date
         System.out.print("Please enter your departure date (MM-DD-YY): ");
