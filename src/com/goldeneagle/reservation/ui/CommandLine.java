@@ -53,16 +53,25 @@ public class CommandLine {
     }
 
     private void bookFlight() {
+        
+        // initialize variables
         List<City> cities = data.getCities();
         City selectedDepartureCity;
         City selectedArrivalCity;
 
+        // print all of the possible cities. Repeat while the selected departure city equals the selected arrival city
         do {
             System.out.println("Please select your departure city:");
+            
+            // print all of the cities as a list
             for (int i=0; i < cities.size(); i++) {
                 System.out.println((i+1) + ") " + cities.get(i).getName());
             }
+            
+            // print an option to return to the main menu
             System.out.println(cities.size() + 1 + ") Return to menu");
+            
+            // collect selection from user
             System.out.print("\nSelection: ");
             int departureSelection = this.scanner.nextInt();
 
@@ -72,43 +81,60 @@ public class CommandLine {
                 return;
             };
 
-            // fetch city object by index
+            // fetch city object by selected index
             selectedDepartureCity = cities.get(departureSelection - 1);
 
             System.out.println("--------------------------------");
             System.out.println("Please select your arrival city: ");
 
+            // print all cities
             for (int i=0; i < cities.size(); i++) {
                 System.out.println((i+1) + ") " + cities.get(i).getName());
             }
+            
+            // print return menu option
             System.out.println(cities.size() + 1 + ") Return to menu");
+            
+            // gather arrival selection
             System.out.print("\n" + "Selection: ");
-
-            int arr = this.scanner.nextInt();
+            int arrivalSelection = this.scanner.nextInt();
 
             // return if quit is selected
-            if (arr == cities.size() + 1) {
+            if (arrivalSelection == cities.size() + 1) {
                 System.out.println("--------------------------------");
                 return;
             };
 
             // fetch city object by index
-            selectedArrivalCity = cities.get(arr - 1);
+            selectedArrivalCity = cities.get(arrivalSelection - 1);
+            
+            // if selected departure and arrival cities are the same, send error message
             if (selectedDepartureCity.equals(selectedArrivalCity)) {
                 System.out.println("--------------------------------");
                 System.out.println("Departure City cannot be the same as the Arrival City");
             }
             System.out.println("--------------------------------");
+            
+            // repeat while selected cities are the same
         } while(selectedDepartureCity.equals(selectedArrivalCity));
 
-
-        // searches through all of the flights and creates a list of possible dateTimeOptions
+        // create a list of date time options
         List<LocalDateTime> dateTimeOptions = new ArrayList<>();
+        
+        // loop through all of the generated date times
         for (LocalDateTime dateTime : this.data.getDateTimes()) {
+            
+            // for every date time, loop through all of the generated flights
             for (Flight flight : this.data.getFlights()) {
+                
+                // if the flight date is the same as the current date in the loop AND
+                // the flight arrival city is the same as the selected arrival city AND
+                // the flight departure city is the same as the selected departure city
+                // add that date time to the list of possible dates
                 if (flight.getDateTime().equals(dateTime) && flight.getArrivalCity().equals(selectedArrivalCity)
                     && flight.getDepartureCity().equals(selectedDepartureCity)) {
 
+                    // check if the date already exists in the list before adding it
                     if (!dateTimeOptions.contains(dateTime)) {
                         dateTimeOptions.add(dateTime);
                     }
@@ -116,7 +142,7 @@ public class CommandLine {
             }
         }
 
-        // print all of the possible dates
+        // print all of the dates that were filtered above
         System.out.println("Please select your departure date: ");
         for (int i=0; i < dateTimeOptions.size(); i++) {
             LocalDateTime dateTime = dateTimeOptions.get(i);
@@ -135,6 +161,7 @@ public class CommandLine {
             return;
         };
 
+        // fetch the selected date time
         LocalDateTime selectedDateTime = dateTimeOptions.get(selectedDate - 1);
         System.out.println("--------------------------------");
 
@@ -152,9 +179,13 @@ public class CommandLine {
             }
         }
 
-        boolean seatIsNotAvailable = true;
-        Seat yourSeat = null;
+        // start with seatIsAvailable to false
+        boolean seatIsAvailable = false;
+        
+        // initialize selected seat object
+        Seat selectedSeat = null;
 
+        // print all of the flights
         System.out.println("Please select a flight: ");
         do {
             for (int i=0; i < selectedFlights.size(); i++) {
@@ -179,29 +210,29 @@ public class CommandLine {
             System.out.println(selectedFlights.size() + 1 + ") Return to menu");
             System.out.print("Selection: ");
 
-            int fli = this.scanner.nextInt();
+            int flightSelection = this.scanner.nextInt();
 
             // return if quit is selected
-            if (fli == selectedFlights.size() + 1) return;
+            if (flightSelection == selectedFlights.size() + 1) return;
 
             // fetch flight object by index
-            Flight flight = selectedFlights.get(fli - 1);
+            Flight flight = selectedFlights.get(flightSelection - 1);
 
             //TODO check if seats are available, if not then return to prompt. If so then continue
             for (Seat seat : flight.getSeats()) {
                 if (seat.isAvailable()) {
-                    yourSeat = seat;
-                    seatIsNotAvailable = false;
+                    selectedSeat = seat;
+                    seatIsAvailable = true;
                 }
             }
 
-            if (seatIsNotAvailable) {
+            if (!seatIsAvailable) {
                 System.out.println("--------------------------------");
                 System.out.println("There were no seats available for the selected flight. Please select a different flight");
             }
             System.out.println("--------------------------------");
 
-        } while (seatIsNotAvailable);
+        } while (!seatIsAvailable);
 
         boolean doesEmailExist;
         String email;
@@ -225,10 +256,10 @@ public class CommandLine {
             System.out.println("--------------------------------");
         } while (doesEmailExist);
 
-        yourSeat.setAvailable(false);
-        yourSeat.setEmail(email);
+        selectedSeat.setAvailable(false);
+        selectedSeat.setEmail(email);
 
-        System.out.println("Your reservation has been booked under " + email + ", your seat is #" + yourSeat.getName());
+        System.out.println("Your reservation has been booked under " + email + ", your seat is #" + selectedSeat.getName());
 
         System.out.println("--------------------------------");
 
