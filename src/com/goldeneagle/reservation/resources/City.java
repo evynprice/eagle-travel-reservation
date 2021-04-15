@@ -1,31 +1,20 @@
 package com.goldeneagle.reservation.resources;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class City {
     private final String name;
-    private List<Flight> flights;
+    private final String airport;
 
-    public City(String name) {
+    public City(String name, String airport) {
         this.name = name;
-        this.flights = new ArrayList<>();
-    }
-
-    public City(String name, List<Flight> flights) {
-        this.name = name;
-        this.flights = flights;
+        this.airport = airport;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public List<Flight> getFlights() {
-        return this.flights;
-    }
-
-    public void addFlight(Flight flight) {
-        this.flights.add(flight);
+    public String getAirport() {
+        return this.airport;
     }
 }

@@ -20,6 +20,7 @@ public class DataGenerator {
     // initialize instance variables
     private final List<City> cities = new ArrayList<>();
     private final List<Flight> flights = new ArrayList<>();
+    private final List<LocalDateTime> dateTimes = new ArrayList<>();
     private final Random random = new Random();
 
     /**
@@ -27,18 +28,18 @@ public class DataGenerator {
      */
     public DataGenerator() {
         this.generateCities();
-        this.generateFlights(6); // generate six flights
+        this.generateFlights(100); // generate six flights
     }
 
     /**
      * This method adds all of the possible cities for departures and arrivals to the cities object
      */
     private void generateCities() {
-        this.cities.add(new City("Chattanooga, TN"));
-        this.cities.add(new City("Nashville, TN"));
-        this.cities.add(new City("Chicago, IL"));
-        this.cities.add(new City("Los Angeles, CA"));
-        this.cities.add(new City("Atlanta, GA"));
+        this.cities.add(new City("Chattanooga, TN", "CHA"));
+        this.cities.add(new City("Nashville, TN", "NSH"));
+        this.cities.add(new City("Chicago, IL", "CHI"));
+        this.cities.add(new City("Los Angeles, CA", "LOS"));
+        this.cities.add(new City("Atlanta, GA", "ATL"));
     }
 
     /**
@@ -58,15 +59,15 @@ public class DataGenerator {
 
         // create list of times starting with today's date and every day for the next 3 days
         LocalDateTime now = LocalDateTime.now(); // get today's time
-        List<LocalDateTime> dateTimes = new ArrayList<>();
-
-        dateTimes.add(now); // initialize list with today
+        this.dateTimes.add(now); // initialize list with today
 
         // start with current date time and loop to add extra times
+
         for (int i = 1; i <= 3; i++) {
             int randomMinutes = this.random.nextInt(180); // create a random time between 0 and 180
-            dateTimes.add(now.plusDays(i).plusMinutes(randomMinutes)); // add 1 day and the random minutes
+            this.dateTimes.add(now.plusDays(i).plusMinutes(randomMinutes)); // add 1 day and the random minutes
         }
+
 
         /* For the requested number of flights, pull a random name from the list, generate a random flight number,
            pull random departure and arrival cities, date, duration, and generate seat list
@@ -99,7 +100,7 @@ public class DataGenerator {
 
             // pick a number between 0 and the end of the date times list, then fetch the date time at that index
             int dateTimeIndex = this.random.nextInt(dateTimes.size());
-            LocalDateTime dateTime = dateTimes.get(dateTimeIndex);
+            LocalDateTime dateTime = this.dateTimes.get(dateTimeIndex);
 
             // generate a duration between 30 minutes and 3 and a half hours
             Duration duration = this.generateDuration(30, 210);
@@ -119,12 +120,16 @@ public class DataGenerator {
             this.flights.add(new Flight(flightName, flightNum, departureCity, arrivalCity, dateTime, duration, price, seats));
         }
 
-        // change the last flight to have all seats full
+        // change some flights to have all seats full
 
-        Flight lastFlight = this.flights.get(this.flights.size() - 1); // fetch the last flight in the list
+        for (Flight flight : this.flights) {
+            boolean random = this.random.nextBoolean();
 
-        for (Seat lastFlightSeat : lastFlight.getSeats()) {
-            lastFlightSeat.setAvailable(false);
+            if (random) {
+                for (Seat seat : flight.getSeats()) {
+                    seat.setAvailable(false);
+                }
+            }
         }
 
     }
@@ -178,6 +183,10 @@ public class DataGenerator {
      */
     public List<Flight> getFlights() {
         return flights;
+    }
+
+    public List<LocalDateTime> getDateTimes() {
+        return dateTimes;
     }
 }
 
