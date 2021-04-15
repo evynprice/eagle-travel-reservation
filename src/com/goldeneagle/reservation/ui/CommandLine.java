@@ -22,7 +22,6 @@ public class CommandLine {
 
     public void init() {
         boolean running = true;
-
         System.out.println("Golden Eagle Travel Reservation");
         System.out.println("--------------------------------");
 
@@ -53,7 +52,7 @@ public class CommandLine {
     }
 
     private void bookFlight() {
-        
+
         // initialize variables
         List<City> cities = data.getCities();
         City selectedDepartureCity;
@@ -62,15 +61,15 @@ public class CommandLine {
         // print all of the possible cities. Repeat while the selected departure city equals the selected arrival city
         do {
             System.out.println("Please select your departure city:");
-            
+
             // print all of the cities as a list
             for (int i=0; i < cities.size(); i++) {
                 System.out.println((i+1) + ") " + cities.get(i).getName());
             }
-            
+
             // print an option to return to the main menu
             System.out.println(cities.size() + 1 + ") Return to menu");
-            
+
             // collect selection from user
             System.out.print("\nSelection: ");
             int departureSelection = this.scanner.nextInt();
@@ -91,10 +90,10 @@ public class CommandLine {
             for (int i=0; i < cities.size(); i++) {
                 System.out.println((i+1) + ") " + cities.get(i).getName());
             }
-            
+
             // print return menu option
             System.out.println(cities.size() + 1 + ") Return to menu");
-            
+
             // gather arrival selection
             System.out.print("\n" + "Selection: ");
             int arrivalSelection = this.scanner.nextInt();
@@ -107,26 +106,26 @@ public class CommandLine {
 
             // fetch city object by index
             selectedArrivalCity = cities.get(arrivalSelection - 1);
-            
+
             // if selected departure and arrival cities are the same, send error message
             if (selectedDepartureCity.equals(selectedArrivalCity)) {
                 System.out.println("--------------------------------");
                 System.out.println("Departure City cannot be the same as the Arrival City");
             }
             System.out.println("--------------------------------");
-            
+
             // repeat while selected cities are the same
         } while(selectedDepartureCity.equals(selectedArrivalCity));
 
         // create a list of date time options
         List<LocalDateTime> dateTimeOptions = new ArrayList<>();
-        
+
         // loop through all of the generated date times
         for (LocalDateTime dateTime : this.data.getDateTimes()) {
-            
+
             // for every date time, loop through all of the generated flights
             for (Flight flight : this.data.getFlights()) {
-                
+
                 // if the flight date is the same as the current date in the loop AND
                 // the flight arrival city is the same as the selected arrival city AND
                 // the flight departure city is the same as the selected departure city
@@ -181,9 +180,10 @@ public class CommandLine {
 
         // start with seatIsAvailable to false
         boolean seatIsAvailable = false;
-        
-        // initialize selected seat object
+
+        // initialize objects
         Seat selectedSeat = null;
+        Flight selectedFlight = null;
 
         // print all of the flights
         System.out.println("Please select a flight: ");
@@ -192,6 +192,7 @@ public class CommandLine {
                 Flight flight = selectedFlights.get(i);
                 int hours = (int) flight.getDuration().toHours();
                 int minutes = (int) flight.getDuration().minusHours(hours).toMinutes();
+                String time = hours + "h " + minutes + "m";
 
                 int availableSeatCount = 0;
 
@@ -201,10 +202,12 @@ public class CommandLine {
                     }
                 }
 
-                //TODO set this to print actual data (flight name, num, depCity, arrCity, dateTime, duration, price, and how many seats out of 25 are available
-                System.out.printf((i+1) + ") %s %s-%s: %dh %dm - $%5.2f %d/25 seats %n", flight.getName(),
+                System.out.printf((i+1) + ") %10s %d | %s-%s | %s | %6s | $%5.2f | %d/25 seats available%n",
+                        flight.getName(),
+                        flight.getNum(),
                         flight.getDepartureCity().getAirport(), flight.getArrivalCity().getAirport(),
-                        hours, minutes, flight.getPrice(), availableSeatCount);
+                        flight.getDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")),
+                        time, flight.getPrice(), availableSeatCount);
             }
 
             System.out.println(selectedFlights.size() + 1 + ") Return to menu");
@@ -213,13 +216,15 @@ public class CommandLine {
             int flightSelection = this.scanner.nextInt();
 
             // return if quit is selected
-            if (flightSelection == selectedFlights.size() + 1) return;
+            if (flightSelection == selectedFlights.size() + 1) {
+                System.out.println("--------------------------------");
+                return;
+            };
 
             // fetch flight object by index
-            Flight flight = selectedFlights.get(flightSelection - 1);
+            selectedFlight = selectedFlights.get(flightSelection - 1);
 
-            //TODO check if seats are available, if not then return to prompt. If so then continue
-            for (Seat seat : flight.getSeats()) {
+            for (Seat seat : selectedFlight.getSeats()) {
                 if (seat.isAvailable()) {
                     selectedSeat = seat;
                     seatIsAvailable = true;
@@ -259,39 +264,68 @@ public class CommandLine {
         selectedSeat.setAvailable(false);
         selectedSeat.setEmail(email);
 
-        System.out.println("Your reservation has been booked under " + email + ", your seat is #" + selectedSeat.getName());
+        System.out.println("Your reservation has been booked under " + email +
+                " on flight " + selectedFlight.getName() + " " + selectedFlight.getNum() + ".");
+        System.out.println("Your seat is #" + selectedSeat.getName());
 
         System.out.println("--------------------------------");
 
     }
 
     private void modifyBooking() {
-        System.out.print("What is your email? ");
+        System.out.print("Please enter your email: ");
         String email = scanner.next();
+        Flight foundFlight = null;
+        Seat foundSeat = null;
 
-        List<Flight> yourFlights = new ArrayList<>();
-        List<Seat> yourSeats = new ArrayList<>();
+        System.out.println("--------------------------------");
 
-        for (Flight flight : data.getFlights()) {
+        for (Flight flight : this.data.getFlights()) {
             for (Seat seat : flight.getSeats()) {
                 if (seat.getEmail().equals(email)) {
-
+                    foundSeat = seat;
+                    foundFlight = flight;
                 }
             }
         }
 
-        for (Flight flight : yourFlights) {
-            System.out.println(); // flight info
-        } // ask which flight you would like to modify
+        if (foundFlight == null) {
+            System.out.println("No bookings were found under the email " + email);
+            System.out.println("--------------------------------");
+            return;
+        }
 
-        // loop through the seats in the flight that you asked to modify
+        int hours = (int) foundFlight.getDuration().toHours();
+        int minutes = (int) foundFlight.getDuration().minusHours(hours).toMinutes();
+        String time = hours + "h " + minutes + "m";
 
-        //TODO ask you for your email
-        //Loop through all of the flights, for each flight loop through all of the seats
-        //if your email matches the seat email, set your flight equal to the current flight and your seat equal to the current seat
-        //Display your flight and seat number
-        //Ask if you would like to cancel
-        // If you would like to cancel, set your seat to be available and your email to be ""
-        //Else, return to menu
+        int availableSeatCount = 0;
+
+        for (Seat seat : foundFlight.getSeats()) {
+            if (seat.isAvailable()) {
+                availableSeatCount++;
+            }
+        }
+
+        System.out.println("Your email is currently listed under the following flight: ");
+        System.out.printf("%s %d | %s-%s | %s | %6s | $%5.2f | %d/25 seats available%n",
+                foundFlight.getName(),
+                foundFlight.getNum(),
+                foundFlight.getDepartureCity().getAirport(), foundFlight.getArrivalCity().getAirport(),
+                foundFlight.getDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")),
+                time, foundFlight.getPrice(), availableSeatCount);
+        System.out.println("Your seat is #" + foundSeat.getName());
+
+        System.out.println("\n" + "1) Cancel your booking");
+        System.out.println("2) Return to menu");
+        System.out.print("\n" + "Please select an option: ");
+        int selection = this.scanner.nextInt();
+
+        if (selection == 1) {
+            foundSeat.setEmail("");
+            foundSeat.isAvailable();
+            System.out.println("Your booking has successfully been canceled.");
+        }
+        System.out.println("--------------------------------");
     }
 }
