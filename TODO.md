@@ -3,35 +3,35 @@ Classes:
 - Flight: DONE
 
 - City:
-	- add final string airportName
-	- add getAirportName()
-	- Remove flights variable
-	- Fix getters/setters
+	- add final string airportName (DONE)
+	- add getAirportName() (DONE)
+	- Remove flights variable (DONE)
+	- Fix getters/setters (DONE)
 	- Update documentation
 
 - Seat:
-	- Check bookSeat() method
+	- Check bookSeat() method (DONE)
 
 - Data generation:
 	- Generate cities (DONE)
-	- Generate seats
-	- Generate dates?
-	- Generate flights based on cities, seats, and dates
+	- Generate seats (DONE)
+	- Generate dates? (DONE)
+	- Generate flights based on cities, seats, and dates (DONE)
 	- documentation
-	- getter methods
+	- getter methods (DONE)
 
 - Text UI:
  	- docmentation
-	- Pull data from generation
-	- Select flight
-		- Select departure city
-		- Select arrival city
-		- Select flight
-		- Confirm flight
-	- Modify flight
-		- Enter email
-		- Find flight based on email
-		- Show flight and option to cancel
+	- Pull data from generation (DONE)
+	- Select flight (DONE)
+		- Select departure city (DONE)
+		- Select arrival city (DONE)
+		- Select flight (DONE)
+		- Confirm flight (DONE)
+	- Modify flight (DONE)
+		- Enter email (DONE)
+		- Find flight based on email (DONE)
+		- Show flight and option to cancel (DONE)
 
 - Other:
 	- Unit tests?
