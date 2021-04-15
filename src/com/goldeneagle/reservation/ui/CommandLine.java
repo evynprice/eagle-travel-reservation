@@ -158,7 +158,21 @@ public class CommandLine {
         System.out.print("Please enter your email: ");
         String email = this.scanner.next();
 
+        //possibly a way to deal with double booking but still needs an option to stop.
+        while(email.equals(seat.getEmail))
+        {
+
+            System.out.println("Email is already booked to a flight");
+
+            System.out.print("Please enter your email: ");
+            email = this.scanner.next();
+        }
+
+
+
         System.out.println("--------------------------------");
+
+
 
         //TODO check if this email is currently in use in a flight, if so ask for a different email
 
@@ -168,6 +182,7 @@ public class CommandLine {
         System.out.println("Your reservation has been booked under " + email + ", your seat is #" + yourSeat.getName());
 
         System.out.println("--------------------------------");
+
     }
 
     private void modifyBooking() {
