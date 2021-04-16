@@ -1,22 +1,19 @@
 package com.goldeneagle.reservation.resources;
 
-public class Seat {
+/*
 
+ */
+public class Seat {
+    // initiate instance variables
     private final String name;
     private String email;
     private boolean available;
 
-
     /**
-     * Seat constructor that takes in name and email
+     * Seat constructor that sets the name and boolean and sets the email to ""
      * @param name
-     * @param email
+     * @param available
      */
-    public Seat(String name, String email) {
-      this.name = name;
-      this.email = email;
-    }
-    
     public Seat(String name, boolean available) {
         this.name = name;
         this.email = "";
@@ -61,21 +58,5 @@ public class Seat {
      */
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * Books the seat if the random check is true
-     * @param customer
-     * @param contact
-     * @return
-     */
-    public boolean bookSeat(String customer, String contact) {
-        if (this.available != true) {
-            return false;
-        } else {
-            this.email = contact;
-            this.available = false;
-            return true;
-        }
     }
 }

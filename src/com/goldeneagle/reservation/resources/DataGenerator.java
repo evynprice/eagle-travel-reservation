@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.goldeneagle.reservation.resources;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -170,7 +166,7 @@ public class DataGenerator {
     }
 
     /**
-     * Provides a list of cities
+     * Provides a list of generated cities
      * @return cities
      */
     public List<City> getCities() {
@@ -178,13 +174,17 @@ public class DataGenerator {
     }
 
     /**
-     * Provides a list of flights
+     * Provides a list of generated flights
      * @return flights
      */
     public List<Flight> getFlights() {
         return flights;
     }
 
+    /**
+     * Provides a list of generated date times
+     * @return
+     */
     public List<LocalDateTime> getDateTimes() {
         return dateTimes;
     }
