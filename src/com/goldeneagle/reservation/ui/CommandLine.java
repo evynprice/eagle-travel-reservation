@@ -93,7 +93,7 @@ public class CommandLine {
             int departureSelection = this.scanner.nextInt();
 
             // return if quit is selected
-            if (departureSelection == cities.size() + 1) {
+            if (departureSelection >= cities.size() + 1 || departureSelection <= 0) {
                 System.out.println("--------------------------------");
                 return;
             }
@@ -117,7 +117,7 @@ public class CommandLine {
             int arrivalSelection = this.scanner.nextInt();
 
             // return if quit is selected
-            if (arrivalSelection == cities.size() + 1) {
+            if (arrivalSelection >= cities.size() + 1 || arrivalSelection <= 0) {
                 System.out.println("--------------------------------");
                 return;
             }
@@ -173,7 +173,7 @@ public class CommandLine {
         int selectedDate = this.scanner.nextInt();
 
         // return if quit is selected
-        if (selectedDate == dateTimeOptions.size() + 1) {
+        if (selectedDate >= dateTimeOptions.size() + 1 || selectedDate <= 0) {
             System.out.println("--------------------------------");
             return;
         }
@@ -235,7 +235,7 @@ public class CommandLine {
             int flightSelection = this.scanner.nextInt();
 
             // return if quit is selected
-            if (flightSelection == selectedFlights.size() + 1) {
+            if (flightSelection >= selectedFlights.size() + 1 || flightSelection <= 0) {
                 System.out.println("--------------------------------");
                 return;
             }
