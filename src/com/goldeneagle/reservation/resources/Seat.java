@@ -1,7 +1,7 @@
 package com.goldeneagle.reservation.resources;
 
 /*
-
+    Stores seat information
  */
 public class Seat {
     // initiate instance variables

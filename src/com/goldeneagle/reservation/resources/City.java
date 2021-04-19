@@ -1,7 +1,7 @@
 package com.goldeneagle.reservation.resources;
 
 /*
-* Stores city and airport names.
+ * Stores city and airport names.
  */
 public class City {
     private final String name;
