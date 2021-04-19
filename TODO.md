@@ -7,7 +7,7 @@ Classes:
 	- add getAirportName() (DONE)
 	- Remove flights variable (DONE)
 	- Fix getters/setters (DONE)
-	- Update documentation
+	- Update documentation (DONE)
 
 - Seat:
 	- Check bookSeat() method (DONE)
@@ -17,7 +17,7 @@ Classes:
 	- Generate seats (DONE)
 	- Generate dates? (DONE)
 	- Generate flights based on cities, seats, and dates (DONE)
-	- documentation
+	- documentation (DONE)
 	- getter methods (DONE)
 
 - Text UI:
@@ -34,5 +34,5 @@ Classes:
 		- Show flight and option to cancel (DONE)
 
 - Other:
-	- Unit tests?
+	~~Unit tests?~~
 
