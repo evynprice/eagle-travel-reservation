@@ -16,7 +16,7 @@ After search the system display list of available flights and allows customer to
 The main purpose of this software is to reduce the manual errors involved in the airline reservation process and make it convenient for the customers to book the flights as when they require such that they can utilize this software to make reservations, modify reservations or cancel a particular reservation.
 
 ## Implementation
-TBA
+https://docs.google.com/presentation/d/1439R_WLyTJeZrqdXIPrABA1kuWyc0g-TP0wwwS1V8vw/edit?usp=sharing
 
 ## How to run
-TBA
+Clone this repository and compile using your favorite IDE or javac using JDK 8 
