@@ -24,7 +24,7 @@ public class DataGenerator {
      */
     public DataGenerator() {
         this.generateCities();
-        this.generateFlights(100); // generate six flights
+        this.generateFlights(100); // generate 100 flights
     }
 
     /**
